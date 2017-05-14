@@ -8,7 +8,7 @@ var ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpa
 module.exports = function (config) {
   var forkTsCheckerOptions = {
     blockEmit: true,
-    tslint: false,
+    // tslint: true,
     watch: ['./test'] // optional but improves performance (less stat calls)
   };
   var plugins = config.singleRun
@@ -16,8 +16,8 @@ module.exports = function (config) {
       new ForkTsCheckerWebpackPlugin(forkTsCheckerOptions)
     ]
     : [
-      new ForkTsCheckerNotifierWebpackPlugin({ title: 'Tests Build', excludeWarnings: true }),
-      new ForkTsCheckerWebpackPlugin(Object.assign({},forkTsCheckerOptions, { blockEmit: false }))
+      new ForkTsCheckerNotifierWebpackPlugin({ title: 'Tests Build', excludeWarnings: false }),
+      new ForkTsCheckerWebpackPlugin(Object.assign({}, forkTsCheckerOptions, { blockEmit: false }))
     ];
 
   // Documentation: https://karma-runner.github.io/0.13/config/configuration-file.html

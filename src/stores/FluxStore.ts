@@ -1,16 +1,16 @@
 import { EventEmitter } from 'fbemitter';
 import { Event } from '../dispatcher/AppDispatcher';
-import * as Flux from "flux";
+import * as Flux from 'flux';
 
 const CHANGE_EVENT = 'change';
 
 class FluxStore<TState> {
+  protected state: TState;
   private changed: boolean;
   private emitter: EventEmitter;
   private dispatchToken: string;
   private dispatcher: Flux.Dispatcher<Event>;
   private cleanStateFn: () => TState;
-  protected state: TState;
 
   constructor(dispatcher: Flux.Dispatcher<Event>, public onDispatch: (action: Event) => void, cleanStateFn: () => TState) {
     this.emitter = new EventEmitter();

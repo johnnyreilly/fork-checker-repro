@@ -29,7 +29,7 @@ function buildProduction(done) {
     }),
     new ForkTsCheckerWebpackPlugin({
       blockEmit: true,
-      tslint: false,
+      // tslint: true,
       watch: ['./src', './test'] // optional but improves performance (less stat calls)
     }),
     webpackFailPlugin
@@ -53,10 +53,10 @@ function createDevCompiler() {
 
   myDevConfig.plugins = myDevConfig.plugins.concat(
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Build', excludeWarnings: true }),
+    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Build', excludeWarnings: false }),
     new ForkTsCheckerWebpackPlugin({
       blockEmit: false,
-      tslint: false,
+      // tslint: true,
       watch: ['./src'] // optional but improves performance (less stat calls)
     })
   );

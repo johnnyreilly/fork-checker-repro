@@ -22,7 +22,7 @@ class GreeterStore extends FluxStore<GreetingState> {
         this.state.newGreeting = payload;
         this.emitChange();
       }
-    }
+    };
     super(dispatcher, onDispatch, () => ({
       greetings: [],
       newGreeting: ''
@@ -30,7 +30,7 @@ class GreeterStore extends FluxStore<GreetingState> {
   }
 
   getState() {
-    return this.state
+    return this.state;
   }
 }
 

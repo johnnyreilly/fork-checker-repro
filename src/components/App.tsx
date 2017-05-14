@@ -1,5 +1,5 @@
 import React from 'react';
-import FBEmitter from "fbemitter";
+import FBEmitter from 'fbemitter';
 
 import GreetingStore from '../stores/GreetingStore';
 import GreetingState from '../types/GreetingState';
@@ -11,9 +11,6 @@ class App extends React.Component<{}, GreetingState> {
   constructor(props: {}) {
     super(props);
     this.state = this.getStateFromStores();
-  }
-  private onChange = () => {
-    this.setState(this.getStateFromStores());
   }
 
   public componentWillMount() {
@@ -39,6 +36,9 @@ class App extends React.Component<{}, GreetingState> {
 
   private getStateFromStores() {
     return GreetingStore.getState();
+  }
+  private onChange = () => {
+    this.setState(this.getStateFromStores());
   }
 }
 
