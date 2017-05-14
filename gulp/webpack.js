@@ -53,7 +53,7 @@ function createDevCompiler() {
 
   myDevConfig.plugins = myDevConfig.plugins.concat(
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Webpack', excludeWarnings: true }),
+    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Build', excludeWarnings: true }),
     new ForkTsCheckerWebpackPlugin({
       blockEmit: false,
       tslint: false,
