@@ -4,10 +4,6 @@
 var webpackConfig = require('./webpack.config.js');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-webpackConfig.module.rules[0].use[1].options = {
-  transpile: true
-};
-
 module.exports = function (config) {
   // Documentation: https://karma-runner.github.io/0.13/config/configuration-file.html
   config.set({
@@ -31,13 +27,7 @@ module.exports = function (config) {
     webpack: {
       devtool: 'inline-source-map',
       module: webpackConfig.module,
-      resolve: webpackConfig.resolve,
-      plugins: [
-        new ForkTsCheckerWebpackPlugin({
-          tslint: false,
-          watch: ['./src', './test'] // optional but improves performance (less stat calls)
-        })
-      ]
+      resolve: webpackConfig.resolve
     },
 
     webpackMiddleware: {
@@ -55,6 +45,10 @@ module.exports = function (config) {
         warning: 'bgBlue',
         error: 'bgRed'
       }
+    },
+
+    notifyReporter: {
+      reportSuccess: false // Default: true, Will notify when a suite was successful
     }
   });
 };

@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var webpack = require('webpack');
-var WebpackNotifierPlugin = require('webpack-notifier');
+var ForkTsCheckerNotifierWebpackPlugin  = require('fork-ts-checker-notifier-webpack-plugin');
 var webpackFailPlugin = require('webpack-fail-plugin');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
@@ -14,8 +14,6 @@ function buildProduction(done) {
   // modify some webpack config options
   var myProdConfig = webpackConfig;
   myProdConfig.output.filename = '[name].[hash].js';
-
-  setToTranspile(myDevConfig);
 
   myProdConfig.plugins = myProdConfig.plugins.concat(
     new webpack.DefinePlugin({
@@ -53,11 +51,9 @@ function createDevCompiler() {
   var myDevConfig = webpackConfig;
   myDevConfig.devtool = 'inline-source-map';
 
-  setToTranspile(myDevConfig);
-
   myDevConfig.plugins = myDevConfig.plugins.concat(
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-    new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true }),
+    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Webpack build', excludeWarnings: true }),
     new ForkTsCheckerWebpackPlugin({
       blockEmit: false,
       tslint: false,
@@ -67,13 +63,6 @@ function createDevCompiler() {
 
   // create a single instance of the compiler to allow caching
   return webpack(myDevConfig);
-}
-
-function setToTranspile(config) {
-  config.module.rules[0].use[1].options = {
-    transpile: true
-  };
-  return config;
 }
 
 function build() {

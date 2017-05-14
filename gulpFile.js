@@ -3,7 +3,6 @@
 
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var eslint = require('gulp-eslint');
 var webpack = require('./gulp/webpack');
 var staticFiles = require('./gulp/staticFiles');
 var tests = require('./gulp/tests');
@@ -16,26 +15,16 @@ gulp.task('delete-dist', function (done) {
   clean.run(done);
 });
 
-gulp.task('build-process.env.NODE_ENV', function () {
-  process.env.NODE_ENV = 'production';
-});
-
-gulp.task('build-js', ['delete-dist', 'build-process.env.NODE_ENV'], function(done) {
+gulp.task('build-js', ['delete-dist'], function(done) {
   webpack.build().then(function() { done(); });
 });
 
-gulp.task('build-other', ['delete-dist', 'build-process.env.NODE_ENV'], function() {
+gulp.task('build-other', ['delete-dist'], function() {
   staticFiles.build();
 });
 
-gulp.task('build', ['build-js', 'build-other', 'lint'], function () {
+gulp.task('build', ['build-js', 'build-other'], function () {
   inject.build();
-});
-
-gulp.task('lint', function () {
-  return gulp.src(lintSrcs)
-    .pipe(eslint())
-    .pipe(eslint.format());
 });
 
 gulp.task('watch', ['delete-dist'], function(done) {
@@ -51,7 +40,6 @@ gulp.task('watch', ['delete-dist'], function(done) {
     gutil.log('Problem generating initial assets (js and css)', error);
   });
 
-  gulp.watch(lintSrcs, ['lint']);
   staticFiles.watch();
   tests.watch();
 });
