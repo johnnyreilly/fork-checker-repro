@@ -3,9 +3,9 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var webpack = require('webpack');
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 var ForkTsCheckerNotifierWebpackPlugin  = require('fork-ts-checker-notifier-webpack-plugin');
 var webpackFailPlugin = require('webpack-fail-plugin');
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 var webpackConfig = require('../webpack.config.js');
 var packageJson = require('../package.json');
@@ -53,11 +53,11 @@ function createDevCompiler() {
 
   myDevConfig.plugins = myDevConfig.plugins.concat(
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Webpack build', excludeWarnings: true }),
+    new ForkTsCheckerNotifierWebpackPlugin ({ title: 'Webpack', excludeWarnings: true }),
     new ForkTsCheckerWebpackPlugin({
       blockEmit: false,
       tslint: false,
-      watch: ['./src', './test'] // optional but improves performance (less stat calls)
+      watch: ['./src'] // optional but improves performance (less stat calls)
     })
   );
 
