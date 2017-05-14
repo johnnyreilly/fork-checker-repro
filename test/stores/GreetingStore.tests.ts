@@ -10,7 +10,7 @@ describe('GreetingStore', () => {
 
   it('given no actions, newGreeting should be an empty string and greetings should be an empty array', () => {
     const { greetings, newGreeting } = GreetingStore.getState();
-// const i2: number = '';
+const i2: number = '';
     expect(greetings).toEqual([]);
     expect(newGreeting).toBe('');
   });

@@ -5,7 +5,7 @@ import * as GreetingActions from '../actions/GreetingActions';
 interface Props {
   newGreeting: string;
 }
-// const i:number = '';
+const i:number = '';
 class WhoToGreet extends React.Component<Props, any> {
   constructor(props: Props) {
     super(props);
